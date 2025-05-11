@@ -36,16 +36,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-
 -- Highlight when yanking (copying) text
 -- Try it with `yap` in normal mode
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
@@ -71,4 +70,37 @@ vim.keymap.set('n', '<leader>sb', '<cmd>Telescope buffers<CR>', { desc = 'List o
 vim.keymap.set('n', '<leader>gf', '<cmd>Telescope git_files<CR>', { desc = 'Find Git-tracked files' })
 vim.keymap.set('n', '<leader>sh', '<cmd>Telescope help_tags<CR>', { desc = 'Search help tags' })
 vim.keymap.set('n', '<leader>sr', '<cmd>Telescope oldfiles<CR>', { desc = 'List recent files' })
-vim.keymap.set('n', '<leader>sz', '<cmd>Telescope current_buffer_fuzzy_find<CR>', { desc = 'Fuzzy find in current buffer' })
+vim.keymap.set(
+    'n',
+    '<leader>sz',
+    '<cmd>Telescope current_buffer_fuzzy_find<CR>',
+    { desc = 'Fuzzy find in current buffer' }
+)
+
+-- Conform
+vim.keymap.set({ 'n', 'x' }, '<leader>f', function()
+    require('conform').format({ async = true, lsp_fallback = true })
+end, { desc = '[C]ode [F]ormat' })
+
+-- LSP keymaps (set on LspAttach)
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+    callback = function(event)
+        local lsp_map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+        end
+
+        -- Core navigation (single-key, no prefix)
+        lsp_map('gd', require('telescope.builtin').lsp_definitions, 'Go to Definition')
+        lsp_map('gD', vim.lsp.buf.declaration, 'Go to Declaration')
+        lsp_map('gi', require('telescope.builtin').lsp_implementations, 'Go to Implementation')
+        lsp_map('gr', require('telescope.builtin').lsp_references, 'Get References')
+        lsp_map('K', vim.lsp.buf.hover, 'Show hover documentation')
+
+        -- Leader-based LSP actions (under <leader>l for less frequent actions)
+        lsp_map('<leader>lr', vim.lsp.buf.rename, 'Rename across multiple files', 'n')
+        lsp_map('<leader>la', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
+        lsp_map('<leader>lt', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+    end,
+})
