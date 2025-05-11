@@ -28,10 +28,10 @@ return {
                 layout_config = {
                     width = 0.8,
                     height = 0.8,
-                    preview_width = 0.6,
+                    preview_width = 0.5,
                 },
                 -- Disable costly folders
-                file_ignore_patterns = { 'node_modules', '.git/' },
+                file_ignore_patterns = { 'node_modules' },
                 -- Basic mappings for efficiency
                 mappings = {
                     i = {

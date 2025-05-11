@@ -100,7 +100,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Leader-based LSP actions (under <leader>l for less frequent actions)
         lsp_map('<leader>lr', vim.lsp.buf.rename, 'Rename across multiple files', 'n')
-        lsp_map('<leader>la', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
+        lsp_map('<leader>ca', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
         lsp_map('<leader>lt', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+        lsp_map('<leader>le', function()
+            vim.diagnostic.open_float({
+                scope = 'line',
+                border = 'rounded',
+                max_width = 80,
+                severity = vim.diagnostic.severity.ERROR,
+            })
+        end, 'Show error diagnostics in float', 'n')
     end,
 })

@@ -2,24 +2,14 @@ return {
     {
         'neovim/nvim-lspconfig',
         dependencies = {
+            { 'williamboman/mason.nvim', config = true },
             { 'williamboman/mason-lspconfig.nvim' },
         },
         config = function()
-            local lspconfig = require('lspconfig')
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-
             vim.diagnostic.config({
                 severity_sort = true,
                 float = { border = 'rounded', source = 'if_many' },
                 underline = { severity = vim.diagnostic.severity.ERROR },
-                signs = vim.g.have_nerd_font and {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = '󰅚 ',
-                        [vim.diagnostic.severity.WARN] = '󰀪 ',
-                        [vim.diagnostic.severity.INFO] = '󰋽 ',
-                        [vim.diagnostic.severity.HINT] = '󰌶 ',
-                    },
-                } or {},
                 virtual_text = {
                     source = 'if_many',
                     spacing = 2,
@@ -34,8 +24,7 @@ return {
                     end,
                 },
             })
-
-            -- Define LSP servers and their configurations
+            -- Define LSP servers
             local servers = {
                 lua_ls = {
                     settings = {
@@ -48,6 +37,7 @@ return {
                 },
             }
 
+            local lspconfig = require('lspconfig')
             for server_name, server_config in pairs(servers) do
                 lspconfig[server_name].setup(vim.tbl_deep_extend('force', {
                     capabilities = capabilities,
