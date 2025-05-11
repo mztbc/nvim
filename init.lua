@@ -10,6 +10,9 @@ require('lazy').setup({
     require('plugins/conform'),
     require('plugins/treesitter'),
     require('plugins/mini'),
+    require('plugins/autopairs'),
+    require('plugins/gitsigns'),
+    require('plugins/colors')
 })
 
 require('config.options')

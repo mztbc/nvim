@@ -103,12 +103,71 @@ vim.api.nvim_create_autocmd('LspAttach', {
         lsp_map('<leader>ca', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
         lsp_map('<leader>lt', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
         lsp_map('<leader>le', function()
-            vim.diagnostic.open_float({
-                scope = 'line',
-                border = 'rounded',
-                max_width = 80,
-                severity = vim.diagnostic.severity.ERROR,
+            require('telescope.builtin').diagnostics({
+                severity = vim.diagnostic.severity.ERROR, -- Filter by ERROR severity
+                bufnr = 0, -- Current buffer
+                line = vim.api.nvim_win_get_cursor(0)[1], -- Current line
+                prompt_title = 'Line Error Diagnostics',
+                layout_config = {
+                    width = 0.8, -- Max width (80% of screen)
+                    height = 0.4,
+                },
             })
-        end, 'Show error diagnostics in float', 'n')
+        end, 'Show error diagnostics in Telescope', 'n')
+    end,
+})
+
+-- Gitsigns
+vim.api.nvim_create_autocmd('BufEnter', {
+    group = vim.api.nvim_create_augroup('GitSignsConfig', { clear = true }),
+    callback = function(event)
+        local gs_map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'GitSigns: ' .. desc })
+        end
+
+        local gitsigns = require('gitsigns')
+
+        -- Navigation
+        gs_map(']c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ ']c', bang = true })
+            else
+                gitsigns.nav_hunk('next')
+            end
+        end, 'Jump to next git change')
+
+        gs_map('[c', function()
+            if vim.wo.diff then
+                vim.cmd.normal({ '[c', bang = true })
+            else
+                gitsigns.nav_hunk('prev')
+            end
+        end, 'Jump to previous git change')
+
+        -- Actions visual mode
+        gs_map('hs', function()
+            gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end, 'git stage hunk', 'v')
+
+        gs_map('hr', function()
+            gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+        end, 'git reset hunk', 'v')
+
+        gs_map('hs', gitsigns.stage_hunk, 'git rtage hunk')
+        gs_map('hr', gitsigns.reset_hunk, 'git reset hunk')
+        gs_map('hS', gitsigns.stage_buffer, 'git stage buffer')
+        gs_map('hu', gitsigns.undo_stage_hunk, 'git undo stage hunk')
+        gs_map('hR', gitsigns.reset_buffer, 'git reset buffer')
+        gs_map('hp', gitsigns.preview_hunk, 'git preview hunk')
+        gs_map('hb', gitsigns.blame_line, 'git blame line')
+        gs_map('hd', gitsigns.diffthis, 'git diff against index')
+        gs_map('hD', function()
+            gitsigns.diffthis('@')
+        end, 'git diff against last commit')
+
+        -- Toggles
+        gs_map('tb', gitsigns.toggle_current_line_blame, 'toggle git show blame line')
+        gs_map('tD', gitsigns.toggle_deleted, 'Toggle git show deleted')
     end,
 })
