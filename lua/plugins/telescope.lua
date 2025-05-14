@@ -30,8 +30,8 @@ return {
                     height = 0.8,
                     preview_width = 0.5,
                 },
-                -- Disable costly folders
-                file_ignore_patterns = { 'node_modules' },
+                -- Disable costly files
+                file_ignore_patterns = { 'node_modules', '^package%-lock%.json$' },
                 -- Basic mappings for efficiency
                 mappings = {
                     i = {
