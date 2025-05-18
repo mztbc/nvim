@@ -154,15 +154,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
             gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, 'git reset hunk', 'v')
 
-        gs_map('<leader>hs', gitsigns.stage_hunk, 'git rtage hunk')
-        gs_map('<leader>hr', gitsigns.reset_hunk, 'git reset hunk')
-        gs_map('<leader>hS', gitsigns.stage_buffer, 'git stage buffer')
-        gs_map('<leader>hu', gitsigns.undo_stage_hunk, 'git undo stage hunk')
-        gs_map('<leader>hR', gitsigns.reset_buffer, 'git reset buffer')
-        gs_map('<leader>hp', gitsigns.preview_hunk, 'git preview hunk')
-        gs_map('<leader>hb', gitsigns.blame_line, 'git blame line')
-        gs_map('<leader>hd', gitsigns.diffthis, 'git diff against index')
-        gs_map('<leader>hD', function()
+        gs_map('<leader>gb', gitsigns.blame_line, 'git blame line')
+        gs_map('<leader>gd', gitsigns.diffthis, 'git diff against index')
+        gs_map('<leader>gD', function()
             gitsigns.diffthis('@')
         end, 'git diff against last commit')
 
