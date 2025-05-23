@@ -102,9 +102,31 @@ vim.api.nvim_create_autocmd('LspAttach', {
         lsp_map('<leader>lr', vim.lsp.buf.rename, 'Rename across multiple files', 'n')
         lsp_map('<leader>ca', vim.lsp.buf.code_action, 'Code actions', { 'n', 'x' })
         lsp_map('<leader>lt', require('telescope.builtin').lsp_type_definitions, 'Type Definition')
+
+        lsp_map('<leader>lc', function()
+            local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+            if line < 0 then
+                vim.notify('Invalid line number', vim.log.levels.ERROR)
+                return
+            end
+
+            local diagnostics = vim.diagnostic.get(0, { lnum = line })
+            if not diagnostics or #diagnostics == 0 then
+                vim.notify('No diagnostics found', vim.log.levels.WARN)
+                return
+            end
+
+            local first_diagnostic = diagnostics[1]
+            local diagnostic_text =
+                string.format('%s: %s', vim.diagnostic.severity[first_diagnostic.severity], first_diagnostic.message)
+
+            vim.fn.setreg('+', diagnostic_text)
+
+            vim.notify('First diagnostic copied to clipboard', vim.log.levels.INFO)
+        end, 'Copy first error diagnostic', 'n')
+
         lsp_map('<leader>le', function()
             require('telescope.builtin').diagnostics({
-                severity = vim.diagnostic.severity.ERROR, -- Filter by ERROR severity
                 bufnr = 0, -- Current buffer
                 line = vim.api.nvim_win_get_cursor(0)[1], -- Current line
                 prompt_title = 'Line Error Diagnostics',

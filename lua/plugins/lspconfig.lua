@@ -36,8 +36,12 @@ return {
                         },
                     },
                 },
+                intelephense = {
+                    init_options = {
+                        globalStoragePath = os.getenv('HOME') .. '/.local/share/intelephense',
+                    },
+                },
             }
-
             local lspconfig = require('lspconfig')
             for server_name, server_config in pairs(servers) do
                 lspconfig[server_name].setup(vim.tbl_deep_extend('force', {

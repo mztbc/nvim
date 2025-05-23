@@ -9,6 +9,7 @@ return {
                 go = { 'gofmt' },
                 typescript = { 'prettier' },
                 javascript = { 'prettier' },
+                python = { 'black' },
             },
         },
     },
