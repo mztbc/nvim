@@ -15,5 +15,6 @@ require('lazy').setup({
     require('plugins/colors')
 })
 
+MiniMisc.setup_termbg_sync()
 require('config.options')
 require('config.keymaps')

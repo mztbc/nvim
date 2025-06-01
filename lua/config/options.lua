@@ -4,10 +4,10 @@ vim.o.relativenumber = true
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
-vim.opt.expandtab = true  -- Use spaces instead of tabs
-vim.opt.shiftwidth = 4   -- Number of spaces to insert for indentation
-vim.opt.tabstop = 4      -- Display width of tabs (doesn't affect actual indentation)
-vim.opt.softtabstop = 4  -- Number of spaces for <Tab> key to insert (for convenience)
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4 -- Number of spaces to insert for indentation
+vim.opt.tabstop = 4 -- Display width of tabs (doesn't affect actual indentation)
+vim.opt.softtabstop = 4 -- Number of spaces for <Tab> key to insert (for convenience)
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
 
@@ -56,3 +56,4 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+

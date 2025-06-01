@@ -7,7 +7,7 @@ return {
         'williamboman/mason-lspconfig.nvim',
         opts = {
             ensure_installed = { 'lua_ls' },
-            automatic_installation = true,
+            automatic_installation = false,
             handlers = {
                 function(server_name)
                     local server = servers[server_name] or {}

@@ -25,7 +25,8 @@ return {
                     end,
                 },
             })
-            -- Define LSP servers
+
+            -- custom LSP configs are define here
             local servers = {
                 lua_ls = {
                     settings = {
