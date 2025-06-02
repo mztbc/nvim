@@ -57,3 +57,7 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- This is done to sync terminal background with neovim background
+-- effectively hiding the padding
+MiniMisc.setup_termbg_sync()
+

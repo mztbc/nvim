@@ -96,7 +96,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
 
         local gitsigns = require('gitsigns')
 
+        gs_map('<leader>b', gitsigns.blame_line, 'toggle git show blame line')
         gs_map('tb', gitsigns.toggle_current_line_blame, 'toggle git show blame line')
-        gs_map('tD', gitsigns.toggle_deleted, 'Toggle git show deleted')
+        gs_map('td', gitsigns.toggle_deleted, 'Toggle git show deleted')
+        gs_map('tw', gitsigns.toggle_word_diff, 'Toggle git show deleted')
     end,
 })

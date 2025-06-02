@@ -8,13 +8,13 @@ require('lazy').setup({
     require('plugins/mason'),
     require('plugins/lspconfig'),
     require('plugins/conform'),
-    require('plugins/treesitter'),
     require('plugins/mini'),
     require('plugins/autopairs'),
     require('plugins/gitsigns'),
     require('plugins/colors')
+    -- I'm not using treesitter anymore
+    -- require('plugins/treesitter'),
 })
 
-MiniMisc.setup_termbg_sync()
 require('config.options')
 require('config.keymaps')
