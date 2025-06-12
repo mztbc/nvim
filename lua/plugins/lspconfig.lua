@@ -42,6 +42,20 @@ return {
                         globalStoragePath = os.getenv('HOME') .. '/.local/share/intelephense',
                     },
                 },
+                vuels = {
+                    filetypes = { 'vue' },
+                    init_options = {
+                        config = {
+                            vetur = {
+                                validation = {
+                                    template = true,
+                                    script = true,
+                                    style = true,
+                                },
+                            },
+                        },
+                    },
+                },
             }
             local lspconfig = require('lspconfig')
             for server_name, server_config in pairs(servers) do

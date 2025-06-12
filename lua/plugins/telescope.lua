@@ -1,6 +1,6 @@
 return {
     'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
         'nvim-lua/plenary.nvim',
         { 'nvim-telescope/telescope-ui-select.nvim' },
@@ -21,7 +21,11 @@ return {
         require('telescope').setup({
             defaults = {
                 layout_strategy = 'horizontal',
-                file_ignore_patterns = { 'node_modules', '^package%-lock%.json$' },
+                file_ignore_patterns = {
+                    'node_modules',
+                    '^package%-lock%.json$',
+                    '__init__.py'
+                },
                 mappings = {
                     i = {
                         ['<C-j>'] = 'move_selection_next',
@@ -34,9 +38,9 @@ return {
                 },
             },
             pickers = {
-                find_files = {
-                    theme = "ivy"
-                }
+                -- find_files = {
+                --     theme = "ivy"
+                -- }
             },
             extensions = {
                 ['ui-select'] = {

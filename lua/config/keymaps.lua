@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Core navigation (single-key, no prefix)
         lsp_map('gd', require('telescope.builtin').lsp_definitions, 'Go to Definition')
         lsp_map('gD', vim.lsp.buf.declaration, 'Go to Declaration')
+        lsp_map('gt', vim.lsp.buf.type_definition, 'Go to Type Definition')
         lsp_map('gi', require('telescope.builtin').lsp_implementations, 'Go to Implementation')
         lsp_map('gr', require('telescope.builtin').lsp_references, 'Get References')
         lsp_map('K', vim.lsp.buf.hover, 'Show hover documentation')
