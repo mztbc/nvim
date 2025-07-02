@@ -48,8 +48,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.keymap.set('n', '<leader>sf', '<cmd>Telescope find_files<CR>', { desc = 'Find files' })
 vim.keymap.set('n', '<leader>sg', '<cmd>Telescope live_grep<CR>', { desc = 'Search text in files' })
 vim.keymap.set('n', '<leader>sb', '<cmd>Telescope buffers<CR>', { desc = 'List open buffers' })
-vim.keymap.set('n', '<leader>sh', '<cmd>Telescope help_tags<CR>', { desc = 'Search help tags' })
+vim.keymap.set('n', '<leader>st', '<cmd>Telescope help_tags<CR>', { desc = 'Search help tags' })
 vim.keymap.set('n', '<leader>sr', '<cmd>Telescope oldfiles<CR>', { desc = 'List recent files' })
+vim.keymap.set('n', '<leader>sh', function()
+    require('custom.telescope').git_bcommits_with_preview()
+end, { desc = 'Search Git History (custom)' })
 vim.keymap.set(
     'n',
     '<leader>s/',
