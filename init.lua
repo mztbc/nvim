@@ -11,10 +11,7 @@ require('lazy').setup({
     require('plugins/mini'),
     require('plugins/autopairs'),
     require('plugins/gitsigns'),
-    require('plugins/diffview'),
-    require('plugins/colors')
-    -- I'm not using treesitter anymore
-    -- require('plugins/treesitter'),
+    require('plugins/colors'),
 })
 
 require('config.options')
