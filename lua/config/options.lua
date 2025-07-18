@@ -12,9 +12,7 @@ vim.opt.softtabstop = 4 -- Number of spaces for <Tab> key to insert (for conveni
 vim.o.showmode = false
 
 -- Sync clipboard between OS and Neovim.
-vim.schedule(function()
-    vim.o.clipboard = 'unnamedplus'
-end)
+vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -57,7 +55,9 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.g.netrw_banner = 0
+vim.opt.scroll = 10
+
 -- This is done to sync terminal background with neovim background
 -- effectively hiding the padding
 MiniMisc.setup_termbg_sync()
-
