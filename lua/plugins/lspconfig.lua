@@ -52,11 +52,14 @@ return {
                     },
                 },
             }
-            local lspconfig = require('lspconfig')
             for server_name, server_config in pairs(servers) do
-                lspconfig[server_name].setup(vim.tbl_deep_extend('force', {
-                    capabilities = capabilities,
-                }, server_config))
+                vim.lsp.config(
+                    server_name,
+                    vim.tbl_deep_extend('force', {
+                        capabilities = capabilities,
+                    }, server_config)
+                )
+                vim.lsp.enable(server_name)
             end
         end,
     },
